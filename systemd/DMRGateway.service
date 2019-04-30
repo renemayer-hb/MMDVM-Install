@@ -1,0 +1,24 @@
+[Unit]
+Description=DMRGateway Service
+# Description=Place this file in /lib/systemd/system
+# Description=DL2RPM
+
+
+#
+# To make the network-online.target available
+# systemctl enable systemd-networkd-wait-online.service
+
+
+
+After=network-online.target syslog.target netcheck.service
+Wants=network-online.target
+
+[Service]
+StandardOutput=null
+WorkingDirectory=/opt/DMRGateway
+RestartSec=3
+ExecStart=/opt/DMRGateway /opt/DMRGateway/DMRGateway.ini
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
